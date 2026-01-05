@@ -1,6 +1,10 @@
 /// <summary>
-/// author Pete Lowe May 2025
+/// author Pete Lowe jan 26
 /// you need to change the above line or lose marks
+/// 
+/// 
+/// Estimate 60 min 
+/// 14:35 - 
 /// </summary>
 
 
@@ -17,7 +21,7 @@
 /// load and setup the sounds
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ sf::Vector2u{800U, 600U}, 32U }, "SFML Game 3.0" },
+	m_window{ sf::VideoMode{ sf::Vector2u{800U, 600U}, 32U }, "AirWolf" },
 	m_DELETEexitGame{false} //when true game will exit
 {
 	setupTexts(); // load font 
@@ -126,7 +130,8 @@ void Game::render()
 {
 	m_window.clear(ULTRAMARINE);
 
-	m_window.draw(m_DELETElogoSprite);
+	m_window.draw(m_heloSprite);
+
 	m_window.draw(m_DELETEwelcomeMessage);
 	
 	m_window.display();
@@ -156,14 +161,13 @@ void Game::setupTexts()
 /// </summary>
 void Game::setupSprites()
 {
-	if (!m_DELETElogoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
+	if(!m_heloTexture.loadFromFile("ASSETS\\IMAGES\\helicopter.png"))
 	{
-		// simple error message if previous call fails
-		std::cout << "problem loading logo" << std::endl;
+		std::cout << "problem wiuth helo image" << std::endl;
 	}
+	m_heloSprite.setTextureRect(sf::IntRect{ sf::Vector2i{0,196}, sf::Vector2i{180,64} });
+
 	
-	m_DELETElogoSprite.setTexture(m_DELETElogoTexture,true);// to reset the dimensions of texture
-	m_DELETElogoSprite.setPosition(sf::Vector2f{ 150.0f, 50.0f });
 }
 
 /// <summary>
@@ -175,5 +179,5 @@ void Game::setupAudio()
 	{
 		std::cout << "Error loading beep sound" << std::endl;
 	}
-	m_DELETEsound.play(); // test sound
+	
 }

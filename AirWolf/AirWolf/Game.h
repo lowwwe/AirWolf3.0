@@ -1,5 +1,5 @@
 /// <summary>
-/// author Pete Lowe May 2025
+/// author Pete Lowe Jan 26
 /// you need to change the above line or lose marks
 /// Also don't have any member properties called Delete...
 /// </summary>
@@ -46,8 +46,10 @@ private:
 	sf::Font m_jerseyFont;// font used by message
 	
 	sf::Text m_DELETEwelcomeMessage{ m_jerseyFont }; // text used for message on screen
-	sf::Texture m_DELETElogoTexture;//  texture used for sfml logo
-	sf::Sprite m_DELETElogoSprite{ m_DELETElogoTexture }; // sprite used for sfml logo
+	
+
+	sf::Texture m_heloTexture; // texture for the heloicopter
+	sf::Sprite m_heloSprite{m_heloTexture };// spite for the helopcopter
 	
 	sf::SoundBuffer m_DELETEsoundBuffer; // buffer for beep sound
 	sf::Sound m_DELETEsound{ m_DELETEsoundBuffer }; // sound object to play

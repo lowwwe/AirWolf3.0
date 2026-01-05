@@ -1,7 +1,7 @@
 /// <summary>
-/// simple game loop for SFML[3.0]
+/// AirWolf simple game
 /// 
-/// author Pete Lowe May 2025
+/// author Pete Lowe Jan 26
 /// you need to change the above line or lose marks
 /// </summary>
 
