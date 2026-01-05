@@ -106,8 +106,15 @@ void Game::processKeys(const std::optional<sf::Event> t_event)
 void Game::processMousePress(const std::optional<sf::Event> t_event)
 {
 	const sf::Event::MouseButtonPressed* newMousePress = t_event->getIf<sf::Event::MouseButtonPressed>();
+	sf::Vector2f path;// path of helicopter flight
+
+
 	if (sf::Mouse::Button::Left == newMousePress->button)
 	{
+		m_target = static_cast<sf::Vector2f>(newMousePress->position);
+		path = m_target - m_location;
+		path = path.normalized();
+		m_velocity = path * m_speed;
 		if (newMousePress->position.x < m_location.x)
 		{
 			m_facing = Direction::Left;
@@ -189,8 +196,25 @@ void Game::animateHelo()
 /// </summary>
 void Game::move()
 {
+
 	m_location += m_velocity;
 	m_heloSprite.setPosition(m_location);
+	if (m_facing == Direction::Left)
+	{
+		if (m_location.x < m_target.x)
+		{
+			m_velocity = sf::Vector2f{ 0.0f,0.0f };
+			m_facing = Direction::None;
+		}
+	}
+	if (Direction::Right == m_facing)
+	{
+		if (m_location.x > m_target.x)
+		{
+			m_facing = Direction::None;
+			m_velocity = sf::Vector2f{ 0.0f,0.0f };
+		}
+	}
 }
 
 /// <summary>

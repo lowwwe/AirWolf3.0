@@ -73,6 +73,9 @@ private:
 	Direction m_facing = Direction::None;// facing of helo
 	sf::Vector2f m_location{ 200.0f,200.0f };// location of Helo
 	sf::Vector2f m_velocity{ 0.0f,0.0f };// velocity of helo
+	sf::Vector2f m_target{ 0.0f,0.0f };// target location for helo
+
+	float m_speed = 5.0f; // helo speed 
 
 };
 
