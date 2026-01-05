@@ -3,7 +3,7 @@
 /// you need to change the above line or lose marks
 /// 
 /// 
-/// Estimate 60 min 
+/// Estimate 60 min probally correct
 /// 14:35 - 
 /// </summary>
 
@@ -24,7 +24,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ sf::Vector2u{800U, 600U}, 32U }, "AirWolf" },
 	m_DELETEexitGame{false} //when true game will exit
 {
-	setupTexts(); // load font 
+	
 	setupSprites(); // load texture
 	setupAudio(); // load sounds
 }
@@ -114,6 +114,8 @@ void Game::processMousePress(const std::optional<sf::Event> t_event)
 		m_target = static_cast<sf::Vector2f>(newMousePress->position);
 		path = m_target - m_location;
 		path = path.normalized();
+		m_heloSound.setPitch(1.0f);
+		m_frameIncrement = 0.5f;
 		m_velocity = path * m_speed;
 		if (newMousePress->position.x < m_location.x)
 		{
@@ -163,7 +165,7 @@ void Game::render()
 
 	m_window.draw(m_heloSprite);
 
-	m_window.draw(m_DELETEwelcomeMessage);
+	
 	
 	m_window.display();
 }
@@ -205,6 +207,8 @@ void Game::move()
 		{
 			m_velocity = sf::Vector2f{ 0.0f,0.0f };
 			m_facing = Direction::None;
+			m_heloSound.setPitch(0.5f);
+			m_frameIncrement = 0.234f;
 		}
 	}
 	if (Direction::Right == m_facing)
@@ -213,28 +217,12 @@ void Game::move()
 		{
 			m_facing = Direction::None;
 			m_velocity = sf::Vector2f{ 0.0f,0.0f };
+			m_heloSound.setPitch(0.5f);
+			m_frameIncrement = 0.234f;
 		}
 	}
 }
 
-/// <summary>
-/// load the font and setup the text message for screen
-/// </summary>
-void Game::setupTexts()
-{
-	if (!m_jerseyFont.openFromFile("ASSETS\\FONTS\\Jersey20-Regular.ttf"))
-	{
-		std::cout << "problem loading arial black font" << std::endl;
-	}
-	m_DELETEwelcomeMessage.setFont(m_jerseyFont);
-	m_DELETEwelcomeMessage.setString("SFML Game");
-	m_DELETEwelcomeMessage.setPosition(sf::Vector2f{ 205.0f, 240.0f });
-	m_DELETEwelcomeMessage.setCharacterSize(96U);
-	m_DELETEwelcomeMessage.setOutlineColor(sf::Color::Black);
-	m_DELETEwelcomeMessage.setFillColor(sf::Color::Red);
-	m_DELETEwelcomeMessage.setOutlineThickness(2.0f);
-
-}
 
 /// <summary>
 /// load the texture and setup the sprite for the logo
@@ -256,9 +244,13 @@ void Game::setupSprites()
 /// </summary>
 void Game::setupAudio()
 {
-	if (!m_DELETEsoundBuffer.loadFromFile("ASSETS\\AUDIO\\beep.wav"))
+	if (!m_heloSoundBuffer.loadFromFile("Assets/audio/helicopter.wav"))
 	{
-		std::cout << "Error loading beep sound" << std::endl;
+		std::cout << "error with helo sound file" << std::endl;
 	}
+	m_heloSound.setLooping(true);
+	m_heloSound.setPitch(0.5f);
+	m_heloSound.play();
+	
 	
 }

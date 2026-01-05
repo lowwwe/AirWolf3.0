@@ -48,22 +48,25 @@ private:
 	void animateHelo();
 	void move();
 	
-	void setupTexts();
+	
 	void setupSprites();
 	void setupAudio();
 
 	
 	sf::RenderWindow m_window; // main SFML window
-	sf::Font m_jerseyFont;// font used by message
+
 	
-	sf::Text m_DELETEwelcomeMessage{ m_jerseyFont }; // text used for message on screen
+
 	
 
 	sf::Texture m_heloTexture; // texture for the heloicopter
 	sf::Sprite m_heloSprite{m_heloTexture };// spite for the helopcopter
 	
-	sf::SoundBuffer m_DELETEsoundBuffer; // buffer for beep sound
-	sf::Sound m_DELETEsound{ m_DELETEsoundBuffer }; // sound object to play
+
+
+	sf::SoundBuffer m_heloSoundBuffer; // sound buffer
+	sf::Sound m_heloSound{ m_heloSoundBuffer }; // used to play sound
+
 	bool m_DELETEexitGame; // control exiting game
 
 	int m_currentFrame = 0;// current frame for animation
