@@ -121,6 +121,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	animateHelo();
 }
 
 /// <summary>
@@ -135,6 +136,27 @@ void Game::render()
 	m_window.draw(m_DELETEwelcomeMessage);
 	
 	m_window.display();
+}
+
+
+/// <summary>
+/// aninate the helocoptor
+/// 4 frames number 0,1,2,3
+/// 
+/// </summary>
+void Game::animateHelo()
+{
+	int newFramewNumber = 0; // new frame number if different to current then change
+	m_currentFrameCounter += m_frameIncrement;
+	newFramewNumber = static_cast<int>(m_currentFrameCounter) % 4;
+
+
+	if (newFramewNumber != m_currentFrame)
+	{
+		m_currentFrame = newFramewNumber;
+		m_heloSprite.setTextureRect(sf::IntRect{sf::Vector2i{0,newFramewNumber * 64}, sf::Vector2i{180,64}}); // {0,0} - {0,64} - {0,128} - {0,196}
+
+	}
 }
 
 /// <summary>

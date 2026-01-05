@@ -36,6 +36,8 @@ private:
 	void checkKeyboardState();
 	void update(sf::Time t_deltaTime);
 	void render();
+
+	void animateHelo();
 	
 	void setupTexts();
 	void setupSprites();
@@ -54,6 +56,10 @@ private:
 	sf::SoundBuffer m_DELETEsoundBuffer; // buffer for beep sound
 	sf::Sound m_DELETEsound{ m_DELETEsoundBuffer }; // sound object to play
 	bool m_DELETEexitGame; // control exiting game
+
+	int m_currentFrame = 0;// current frame for animation
+	float m_currentFrameCounter = 0.0f;// frame counter
+	float m_frameIncrement = 0.734;// frame increment =14/60 == 2.33
 
 };
 
