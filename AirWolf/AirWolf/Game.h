@@ -22,6 +22,13 @@
 
 const sf::Color ULTRAMARINE{ 5, 55,242,255 }; // const colour
 
+enum class Direction
+{
+	None,
+	Left,
+	Right
+};
+
 class Game
 {
 public:
@@ -33,11 +40,13 @@ private:
 
 	void processEvents();
 	void processKeys(const std::optional<sf::Event> t_event);
+	void processMousePress(const std::optional<sf::Event> t_event);
 	void checkKeyboardState();
 	void update(sf::Time t_deltaTime);
 	void render();
 
 	void animateHelo();
+	void move();
 	
 	void setupTexts();
 	void setupSprites();
@@ -59,7 +68,11 @@ private:
 
 	int m_currentFrame = 0;// current frame for animation
 	float m_currentFrameCounter = 0.0f;// frame counter
-	float m_frameIncrement = 0.734;// frame increment =14/60 == 2.33
+	float m_frameIncrement = 0.234;// frame increment =14/60 == 2.33
+
+	Direction m_facing = Direction::None;// facing of helo
+	sf::Vector2f m_location{ 200.0f,200.0f };// location of Helo
+	sf::Vector2f m_velocity{ 0.0f,0.0f };// velocity of helo
 
 };
 

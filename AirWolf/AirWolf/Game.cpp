@@ -82,6 +82,10 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		if (newEvent->is<sf::Event::MouseButtonPressed>())
+		{
+			processMousePress(newEvent);
+		}
 	}
 }
 
@@ -96,6 +100,24 @@ void Game::processKeys(const std::optional<sf::Event> t_event)
 	if (sf::Keyboard::Key::Escape == newKeypress->code)
 	{
 		m_DELETEexitGame = true; 
+	}
+}
+
+void Game::processMousePress(const std::optional<sf::Event> t_event)
+{
+	const sf::Event::MouseButtonPressed* newMousePress = t_event->getIf<sf::Event::MouseButtonPressed>();
+	if (sf::Mouse::Button::Left == newMousePress->button)
+	{
+		if (newMousePress->position.x < m_location.x)
+		{
+			m_facing = Direction::Left;
+			m_heloSprite.setScale(sf::Vector2f{ -1.0f, 1.0f });
+		}
+		else
+		{
+			m_facing = Direction::Right;
+			m_heloSprite.setScale(sf::Vector2f{ 1.0f,1.0f });
+		}
 	}
 }
 
@@ -122,6 +144,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	animateHelo();
+	move();
 }
 
 /// <summary>
@@ -159,6 +182,17 @@ void Game::animateHelo()
 	}
 }
 
+
+/// <summary>
+/// move helicopter using existing velocity
+/// and stop when we get to target
+/// </summary>
+void Game::move()
+{
+	m_location += m_velocity;
+	m_heloSprite.setPosition(m_location);
+}
+
 /// <summary>
 /// load the font and setup the text message for screen
 /// </summary>
@@ -188,6 +222,7 @@ void Game::setupSprites()
 		std::cout << "problem wiuth helo image" << std::endl;
 	}
 	m_heloSprite.setTextureRect(sf::IntRect{ sf::Vector2i{0,196}, sf::Vector2i{180,64} });
+	m_heloSprite.setOrigin(sf::Vector2f{ 90.0f,0.0f });
 
 	
 }
